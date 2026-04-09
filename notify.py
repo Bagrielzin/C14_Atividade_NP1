@@ -3,48 +3,62 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+SMTP_SERVER = "smtp.gmail.com"
+SMTP_PORT = 465
+
 username = os.getenv("EMAIL_USERNAME")
 password = os.getenv("EMAIL_PASSWORD")
 emails = os.getenv("EMAIL_TO")
 status = os.getenv("PIPELINE_STATUS", "desconhecido")
 
+repo = os.getenv("GITHUB_REPOSITORY", "N/A")
+run_number = os.getenv("GITHUB_RUN_NUMBER", "N/A")
+
 print("Iniciando envio de emails...")
 
-if not emails:
-    print("Nenhum email configurado.")
+if not username or not password:
+    print("Erro: credenciais de email não configuradas.")
     exit(1)
 
-lista_emails = [email.strip() for email in emails.split(",")]
+if not emails:
+    print("Erro: nenhum destinatário configurado.")
+    exit(1)
 
-msg = MIMEMultipart()
-msg["From"] = username
+lista_emails = [email.strip() for email in emails.split(",") if email.strip()]
 
-# Assunto dinâmico
 if status == "success":
-    msg["Subject"] = "✅ Pipeline executado com sucesso"
+    subject = "✅ Pipeline executado com sucesso"
 else:
-    msg["Subject"] = "❌ Pipeline falhou"
+    subject = "❌ Pipeline falhou"
 
 corpo = f"""
 Status do pipeline: {status}
 
-Repositório: {os.getenv('GITHUB_REPOSITORY')}
-Execução: {os.getenv('GITHUB_RUN_NUMBER')}
+Repositório: {repo}
+Execução: #{run_number}
 """
 
-msg.attach(MIMEText(corpo, "plain"))
-
 try:
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+    with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT) as server:
         server.login(username, password)
 
         for destino in lista_emails:
-            msg["To"] = destino
-            server.send_message(msg)
-            print(f"Email enviado para: {destino}")
+            try:
+                msg = MIMEMultipart()
+                msg["From"] = username
+                msg["To"] = destino
+                msg["Subject"] = subject
 
-    print("Envio concluído!")
+                msg.attach(MIMEText(corpo, "plain"))
+
+                server.send_message(msg)
+                print(f"Email enviado para: {destino}")
+
+            except Exception as e:
+                print(f"Erro ao enviar para {destino}: {e}")
+
+    print("Envio finalizado!")
 
 except Exception as e:
-    print("Erro ao enviar email:", e)
+    print("Erro geral ao conectar/enviar emails:", e)
     exit(1)
