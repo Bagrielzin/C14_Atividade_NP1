@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from schema.pokemon import Pokemon
+from schemas.pokemon import Pokemon
 
 POKEMONS_FILE = Path(__file__).parent.parent.parent / "data" / "pokemons.json"
 
