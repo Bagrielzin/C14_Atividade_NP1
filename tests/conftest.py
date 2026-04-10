@@ -1,4 +1,4 @@
 pytest_plugins = [
-    "tests.fixtures.pokemon",
-    "tests.fixtures.jogador"
+    "fixtures.pokemon",
+    "fixtures.jogador"
 ]
