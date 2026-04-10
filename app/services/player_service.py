@@ -1,6 +1,6 @@
 import random
-from schemas.jogador import Jogador
-from services.pokemon_service import get_all_pokemons
+from app.schemas.jogador import Jogador
+from app.services.pokemon_service import get_all_pokemons
 
 def registra_jogador(jogador: Jogador, pokemon_ids: list = None) -> Jogador:
     """Registra um jogador e adiciona 6 pokemons na coleção."""
