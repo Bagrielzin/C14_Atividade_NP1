@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from app.schemas.pokemon import Pokemon
 
-POKEMONS_FILE = Path(__file__).parent.parent.parent / "data" / "pokemons.json"
+POKEMONS_FILE = Path(__file__).parent.parent / "data" / "pokemon.json"
 
 def get_all_pokemons() -> list[Pokemon]:
     """Carrega os pokemons do arquivo JSON e retorna objetos Pokemon."""
