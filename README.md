@@ -139,7 +139,7 @@ O Script `notify.py` envia emails com:
 
 ## Autores
 
-- [Gabriel Soares](https://github.com/Bagrielzin)
 - [Eduardo Pereira](https://github.com/odraude222k)
+- [Gabriel Soares](https://github.com/Bagrielzin)
 - [Maria Clara Ignácio](https://github.com/mariaclaraig)
 - [Matheus Netto](https://github.com/MatheusNetto1)
