@@ -141,5 +141,5 @@ O Script `notify.py` envia emails com:
 
 - [Gabriel Soares](https://github.com/Bagrielzin)
 - [Eduardo Pereira](https://github.com/odraude222k)
-- [Matheus Netto](https://github.com/MatheusNetto1)
 - [Maria Clara Ignácio](https://github.com/mariaclaraig)
+- [Matheus Netto](https://github.com/MatheusNetto1)
